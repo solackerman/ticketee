@@ -15,7 +15,7 @@ feature 'Creating Projects' do
     page.should have_content('Project has been created.')
     
     project = Project.find_by_name("TextMate 2")
-    page.current_url.should == project_url(project)
+    page.current_url.should eql(project_url(project))
     title = "TextMate 2 - Projects - Ticketee"
     find("title").should have_content(title)
   end
