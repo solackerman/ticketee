@@ -24,6 +24,7 @@ feature "hidden links" do
   
   context "regular users" do
     before { sign_in_as!(user) }
+    
     scenario "cannot see the New Project link" do
       visit '/'
       assert_no_link_for "New Project"
