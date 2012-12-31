@@ -58,6 +58,7 @@ Ticketee::Application.routes.draw do
   end
 
   namespace :admin do
+    root :to => "base#index"
     resources :users 
   end
   # See how all your routes lay out with "rake routes"
