@@ -8,7 +8,7 @@ feature 'Deleting tickets' do
     ticket.update_attribute(:user, user)
     ticket
   end
-  
+
   before do
     define_permission!(user, "view", project)
     define_permission!(user, "delete tickets", project)
@@ -17,7 +17,7 @@ feature 'Deleting tickets' do
     click_link project.name
     click_link ticket.title
   end
-  
+
   scenario "Deleting a ticket" do
     click_link "Delete Ticket"
     page.should have_content("Ticket has been deleted.")
