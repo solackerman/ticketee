@@ -3,6 +3,8 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
 
   has_many :assets
+  has_many :comments
+  
   accepts_nested_attributes_for :assets
 
   attr_accessible :description, :title, :assets_attributes
