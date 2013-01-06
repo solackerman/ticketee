@@ -42,9 +42,9 @@ feature "Creating comments" do
     within("#ticket .state") do
       page.should have_content("Open")
     end
-#    within("#comments") do
-#      page.should have_content("State: Open")
-#    end
+    within("#comments") do
+      page.should have_content("State: Open")
+    end
   end
 
   # scenario "A user without permission cannot change the state" do

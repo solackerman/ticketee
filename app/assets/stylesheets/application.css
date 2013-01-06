@@ -123,6 +123,7 @@ ul#tickets .state {
 }
 
 #ticket menu {
+	float: right;
     font-size: 75%;
 }
 

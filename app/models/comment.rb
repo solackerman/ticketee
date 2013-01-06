@@ -1,15 +1,17 @@
 class Comment < ActiveRecord::Base
+  belongs_to :previous_state, :class_name => "State"
   belongs_to :state
   belongs_to :ticket
   belongs_to :user
   
   attr_accessible :text, :state_id
   
-  after_create :set_ticket_state
-  
   delegate :project, :to => :ticket
   
   validates :text, :presence => true
+  
+  before_create :set_previous_state
+  after_create :set_ticket_state
   
   private
   
@@ -18,4 +20,7 @@ class Comment < ActiveRecord::Base
     self.ticket.save!
   end
   
+  def set_previous_state
+    self.previous_state = ticket.state
+  end
 end
