@@ -15,7 +15,7 @@ class Admin::PermissionsController < Admin::BaseController
                             :thing => project,
                             :action => permission)
       end
-    end
+    end if params[:permissions]
     flash[:notice] = "Permissions updated."
     redirect_to admin_user_permissions_path
   end
