@@ -4,14 +4,17 @@ class Comment < ActiveRecord::Base
   belongs_to :ticket
   belongs_to :user
   
-  attr_accessible :text, :state_id
+  attr_accessible :text, :state_id, :tag_names
+  attr_accessor :tag_names
   
   delegate :project, :to => :ticket
   
   validates :text, :presence => true
   
   before_create :set_previous_state
+  
   after_create :set_ticket_state
+  after_create :associate_tags_with_ticket
   
   private
   
@@ -22,5 +25,15 @@ class Comment < ActiveRecord::Base
   
   def set_previous_state
     self.previous_state = ticket.state
+  end
+  
+  def associate_tags_with_ticket
+    if tag_names
+      tags = tag_names.split(" ").map do |name|
+        Tag.find_or_create_by_name(name)
+      end
+      self.ticket.tags += tags
+      self.ticket.save
+    end
   end
 end
