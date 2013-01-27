@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_filter :find_ticket
   
   def create
-    params[:comment].delete(:state_id) if !current_user.admin? && cannot?(:"change states", @ticket.project)
+    sanitize_parameters!
     
     @comment = @ticket.comments.build(params[:comment])
     @comment.user = current_user
@@ -21,5 +21,15 @@ class CommentsController < ApplicationController
   
   def find_ticket
     @ticket = Ticket.find(params[:ticket_id])
+  end
+  
+  def sanitize_parameters!
+    if !current_user.admin? && cannot?(:"change states", @ticket.project)
+      params[:comment].delete(:state_id)
+    end
+
+    if !current_user.admin? && cannot?(:tag, @ticket.project)
+      params[:comment].delete(:tag_names)
+    end
   end
 end
