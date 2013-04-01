@@ -26,6 +26,7 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.11'
+  gem 'gmail', '0.4.0'
 end
 
 group :test do
